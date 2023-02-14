@@ -1,9 +1,20 @@
+import os
+import random
 import discord
 from discord.ext import commands, tasks
 from random import randint, choice
 from time import sleep
 import secrets
 client = discord.Client(intents = discord.Intents.all())
+
+dirname = os.path.dirname(os.path.realpath(__file__))
+
+sounds = [
+    os.path.join(dirname, "sounds", sound)
+    for sound in os.listdir(os.path.join(dirname, "sounds"))
+]
+
+print(f"{len(sounds)} sounds found!")
 
 @client.event
 async def on_ready():
@@ -26,7 +37,7 @@ async def check_vc():
                         print("is in voice")
                         voice_channel = m.voice.channel;
                         vc = await voice_channel.connect()
-                        vc.play(discord.FFmpegPCMAudio(secrets.path + '\\audio.mp3'), after=lambda e: print('done', e))
+                        vc.play(discord.FFmpegPCMAudio(random.choice(sounds)), after=lambda e: print('done', e))
                         # Sleep while audio is playing.
                         while vc.is_playing():
                             sleep(.1)
