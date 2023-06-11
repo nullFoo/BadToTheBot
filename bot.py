@@ -35,6 +35,7 @@ async def check_vc():
                 print(len(guild.members))
                 print(guild.member_count)
 
+                # TODO: Iterate over voice channels, not members
                 for member in guild.members:
                     print(member)
 
