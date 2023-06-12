@@ -20,7 +20,7 @@ print(f"{len(sounds)} sounds found!")
 @client.event
 async def on_ready():
     print('{0.user} active'.format(client))
-    check_vc.start();
+    check_vc.start()
 
 @tasks.loop(seconds=300)
 async def check_vc():
@@ -44,11 +44,12 @@ async def check_vc():
 
                         vc = await member.voice.channel.connect()
                         
-                        def after_playing():
-                            print("Finished playing")
-                            vc.disconnect()
-                        
-                        vc.play(discord.FFmpegPCMAudio(random.choice(sounds)), after=lambda _: after_playing())
+                        vc.play(discord.FFmpegPCMAudio(random.choice(sounds)))
+
+                        # Sleep while audio is playing.
+                        while vc.is_playing():
+                            sleep(.1)
+                        await vc.disconnect()
 
                         break
 
