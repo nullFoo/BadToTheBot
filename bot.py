@@ -32,7 +32,7 @@ async def check_vc():
 
         print(guild.name)
 
-        if True:#random.randint(0, 5) == 1: # 1 in 6 chance
+        if random.randint(0, 5) == 1: # 1 in 6 chance
             print("    Checking channels in server: " + guild.name)
             inhabitedChannels = []
             for channel in guild.voice_channels: # loop through channels in server
